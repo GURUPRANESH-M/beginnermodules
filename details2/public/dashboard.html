@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Welcome</h2>
+    <p id="userDetails"></p>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+
+        fetch(`/user-details/${username}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('userDetails').textContent = `
+                    Username: ${data.username}, 
+                    Name: ${data.name}, 
+                    Address: ${data.address}, 
+                    Mobile: ${data.mobile}, 
+                    Age: ${data.age}`;
+            })
+            .catch(err => console.error(err));
+    </script>
+</body>
+</html>
